@@ -5,6 +5,7 @@
 package com.mycompany.uniburguerretaguarda;
 
 import com.mycompany.uniburguerretaguarda.gui.MenuPrincipal;
+import com.mycompany.uniburguerretaguarda.gateway.APIGateway;
 import javax.swing.JOptionPane;
 
 /**

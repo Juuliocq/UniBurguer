@@ -5,12 +5,11 @@
 package com.mycompany.uniburguerretaguarda.gui;
 
 import com.mycompany.uniburguerretaguarda.model.Produto;
-import java.math.BigDecimal;
+import com.mycompany.uniburguerretaguarda.service.ProdutosService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -19,6 +18,7 @@ import javax.swing.table.TableModel;
 public class ProdutosGUI extends javax.swing.JFrame {
     
     private List<Produto> produtos = new ArrayList<>();
+    ProdutosService produtosService = new ProdutosService();
 
     /**
      * Creates new form ProdutosGUI
@@ -27,14 +27,7 @@ public class ProdutosGUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        Produto p1 = new Produto("Burguer 1", "Hamburguer, alface, queijo, molho especial", new BigDecimal("100"));
-        Produto p2 = new Produto("Burguer 2", "Hamburguer, alface, queijo, molho especial", new BigDecimal("100"));
-        Produto p3 = new Produto("Burguer 3", "Hamburguer, alface, queijo, molho especial", new BigDecimal("100"));
-    
-        produtos.add(p1);
-        produtos.add(p2);
-        produtos.add(p3);
-        
+        produtos = produtosService.getProdutos();
         popularTabela();
     }
     
@@ -44,14 +37,17 @@ public class ProdutosGUI extends javax.swing.JFrame {
                     "Lista de Produtos vazia!", "", JOptionPane.INFORMATION_MESSAGE);
         }
         
-        Object info[][] = new Object[3][produtos.size()];
+        Object info[][] = new Object[produtos.size()][4];
         
         int i = 0;
         for (Produto produto : produtos) {
             
+            
+            info[i][Tabela.ID.getId()] = produto.getId();
             info[i][Tabela.NOME.getId()] = produto.getNome();
             info[i][Tabela.DESCRICAO.getId()] = produto.getDescricao();
-            info[i][Tabela.PRECO.getId()] = produto.getPreco().toString();
+            info[i][Tabela.PRECO.getId()] = produto.getPreco();
+            
             
             i++;
         }
@@ -61,7 +57,7 @@ public class ProdutosGUI extends javax.swing.JFrame {
     
     private void setModel(Object info[][]) {
         String colunas[] = {
-            "Nome", "Descrição", "Preço"
+           "ID", "Nome", "Descrição", "Preço"
         };
         
         tblProduto.setModel(new DefaultTableModel(
@@ -69,7 +65,7 @@ public class ProdutosGUI extends javax.swing.JFrame {
                 colunas
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false
+                false,false, false, false
             };
 
             @Override
@@ -113,7 +109,7 @@ public class ProdutosGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblProduto.setColumnSelectionAllowed(true);
+        tblProduto.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblProduto);
         tblProduto.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -209,9 +205,12 @@ public class ProdutosGUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private enum Tabela {
-        NOME(0),
-        DESCRICAO(1),
-        PRECO(2);
+        
+        ID(0),
+        NOME(1),
+        DESCRICAO(2),
+        PRECO(3);
+        
         
         private final int id;
         

@@ -11,6 +11,8 @@ package com.mycompany.uniburguerretaguarda.gui;
 public class MenuPrincipal extends javax.swing.JFrame {
     
     private ProdutosGUI produtosGUI;
+    private PedidosGUI pedidosGUI;
+
 
     /**
      * Creates new form MenuPrincipal
@@ -44,6 +46,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         btnPedidos.setText("Pedidos");
+        btnPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Bem vindo ao UniBurguer Retaguarda!");
 
@@ -82,6 +89,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             produtosGUI.setVisible(true);
         }
     }//GEN-LAST:event_btnProdutosActionPerformed
+
+    private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
+        if (pedidosGUI == null || !pedidosGUI.isVisible()) {
+            pedidosGUI = new PedidosGUI();
+            pedidosGUI.setVisible(true);
+        }
+    }//GEN-LAST:event_btnPedidosActionPerformed
 
     /**
      * @param args the command line arguments
