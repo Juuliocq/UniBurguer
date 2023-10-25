@@ -1,27 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package com.mycompany.uniburguerretaguarda;
+package com.mycompany.uniburguerretaguarda.gui;
 
 import com.mycompany.uniburguerretaguarda.dto.LoginDTO;
-import com.mycompany.uniburguerretaguarda.gui.MenuPrincipal;
 import com.mycompany.uniburguerretaguarda.service.LoginService;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-/**
- *
- * @author julio
- */
 public class Login extends javax.swing.JFrame {
     
     LoginService loginService = new LoginService();
-
-    /**
-     * Creates new form Login
-     */
+    
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -63,6 +49,7 @@ public class Login extends javax.swing.JFrame {
         btnLogar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
+        btnEspiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -91,26 +78,38 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btnEspiar.setText("Espiar");
+        btnEspiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnEspiarMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnEspiarMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLogin)
-                            .addComponent(txtSenha)))
+                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLogar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEspiar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +121,8 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEspiar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogar)
@@ -149,7 +149,16 @@ public class Login extends javax.swing.JFrame {
         limparCampos();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnEspiarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEspiarMousePressed
+        txtSenha.setEchoChar((char) 0);
+    }//GEN-LAST:event_btnEspiarMousePressed
+
+    private void btnEspiarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEspiarMouseReleased
+        txtSenha.setEchoChar('*');
+    }//GEN-LAST:event_btnEspiarMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEspiar;
     private javax.swing.JButton btnLogar;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

@@ -4,6 +4,8 @@
 
 package com.mycompany.uniburguerretaguarda;
 
+import com.mycompany.uniburguerretaguarda.gui.Login;
+
 /**
  *
  * @author julio

@@ -41,6 +41,15 @@ public class Pedido {
     public String getData_hora() {
         return data_hora;
     }
+    
+    public String getData_horaFormatado() {
+        String ano = data_hora.substring(0, 4);
+        String mes = data_hora.substring(5, 7);
+        String dia = data_hora.substring(8, 10);
+        String hora = data_hora.substring(11, 16);
+        
+        return dia + "/" + mes + "/" + ano + " " + hora;
+    }
 
     public void setData_hora(String data_hora) {
         this.data_hora = data_hora;

@@ -1,9 +1,10 @@
 
-package com.mycompany.uniburguerretaguarda.gui;
+package com.mycompany.uniburguerretaguarda.gui.pedido;
 
 import com.mycompany.uniburguerretaguarda.model.Pedido;
 import com.mycompany.uniburguerretaguarda.service.PedidosService;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
@@ -30,6 +31,8 @@ public class PedidosConsultaGUI extends javax.swing.JFrame {
             orders = orders.stream().filter(i -> i.isFinalizado()).collect(Collectors.toList());
         }
         
+        orders = orders.stream().sorted(Comparator.comparing(Pedido::getId)).collect(Collectors.toList());
+        
         popularTabela();
     }
     
@@ -47,7 +50,7 @@ public class PedidosConsultaGUI extends javax.swing.JFrame {
          info[i][Tabela.ID.getId()] = pedido.getId();
          info[i][Tabela.FINALIZADO.getId()] = pedido.isFinalizado() ? "SIM" : "NÃO";
          info[i][Tabela.NOME_CLIENTE.getId()] = pedido.getNome_cliente();
-         info[i][Tabela.DATA_HORA.getId()] = pedido.getData_hora();
+         info[i][Tabela.DATA_HORA.getId()] = pedido.getData_horaFormatado();
 
          i++;
      }
@@ -149,12 +152,11 @@ public class PedidosConsultaGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnVisualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConsultar)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnVisualizar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(btnConsultar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
                 .addContainerGap())
         );

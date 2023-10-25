@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.uniburguerretaguarda.gui;
+package com.mycompany.uniburguerretaguarda.gui.pedido;
 
 import com.mycompany.uniburguerretaguarda.model.Pedido;
 import com.mycompany.uniburguerretaguarda.model.PedidoItem;
@@ -25,6 +25,7 @@ public class PedidoCadastroGUI extends javax.swing.JFrame {
         this.pedido = pedido;
         
         consultar();
+        txtValorTotal.setText(pedido.getValorTotalPedido());
     }
     
     private void consultar() {
@@ -38,7 +39,6 @@ public class PedidoCadastroGUI extends javax.swing.JFrame {
     
     private void popularCampos() {        
         txtNomeCliente.setText(pedido.getNome_cliente());
-        txtValorTotal.setText(pedido.getValorTotalPedido());
         
         cboSituacao.setSelectedItem(pedido.isFinalizado() ? "FINALIZADO" : "NÃO FINALIZADO");
         btnFinalizar.setEnabled(!pedido.isFinalizado());
