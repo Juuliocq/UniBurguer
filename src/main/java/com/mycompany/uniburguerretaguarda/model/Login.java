@@ -1,7 +1,5 @@
 package com.mycompany.uniburguerretaguarda.model;
 
-import java.math.BigDecimal;
-
 public class Login {
     
     private int id;

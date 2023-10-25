@@ -10,9 +10,8 @@ package com.mycompany.uniburguerretaguarda.gui;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
     
-    private ProdutosGUI produtosGUI;
-    private PedidosGUI pedidosGUI;
-
+    private ProdutosConsultaGUI produtosGUI;
+    private PedidosConsultaGUI pedidosGUI;
 
     /**
      * Creates new form MenuPrincipal
@@ -34,6 +33,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnProdutos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -54,19 +54,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("Bem vindo ao UniBurguer Retaguarda!");
 
+        jToggleButton1.setText("Categorias");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnProdutos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPedidos))
-                    .addComponent(jLabel1))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,7 +81,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPedidos)
                     .addComponent(btnProdutos))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton1)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -85,14 +91,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
         if (produtosGUI == null || !produtosGUI.isVisible()) {
-            produtosGUI = new ProdutosGUI();
+            produtosGUI = new ProdutosConsultaGUI();
             produtosGUI.setVisible(true);
         }
     }//GEN-LAST:event_btnProdutosActionPerformed
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
         if (pedidosGUI == null || !pedidosGUI.isVisible()) {
-            pedidosGUI = new PedidosGUI();
+            pedidosGUI = new PedidosConsultaGUI();
             pedidosGUI.setVisible(true);
         }
     }//GEN-LAST:event_btnPedidosActionPerformed
@@ -136,5 +142,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProdutos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

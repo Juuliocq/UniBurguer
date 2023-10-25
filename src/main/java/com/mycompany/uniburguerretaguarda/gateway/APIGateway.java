@@ -1,8 +1,12 @@
 package com.mycompany.uniburguerretaguarda.gateway;
 
-import com.mycompany.uniburguerretaguarda.Login;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.mycompany.uniburguerretaguarda.dto.LoginDTO;
 import com.mycompany.uniburguerretaguarda.model.Produto;
-import com.mycompany.uniburguerretaguarda.model.Orders;
+import com.mycompany.uniburguerretaguarda.model.Pedido;
+import com.mycompany.uniburguerretaguarda.model.PedidoItem;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
@@ -32,42 +36,57 @@ public class APIGateway {
 
         return response.getBody();
     }
-
-    public List<Login> getLogins() {
+    
+    public List<Pedido> getPedidos() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Login>> response = rest.exchange(API + "/login",
-                HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Login>>() {
+        ResponseEntity<List<Pedido>> response = rest.exchange(API + "/orders",
+                HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Pedido>>() {
         });
 
         return response.getBody();
     }
     
-    public List<Orders> getOrders() {
+    public List<PedidoItem> getPedidoItens(int pIdPedido) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Orders>> response = rest.exchange(API + "/orders",
-                HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Orders>>() {
+        ResponseEntity<List<PedidoItem>> response = rest.exchange(API + "/orderItem/" + pIdPedido,
+                HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<PedidoItem>>() {
         });
 
         return response.getBody();
     }
     
-    public HttpStatusCode putOrder(Orders order) {
+    public HttpStatusCode putPedido(Pedido order) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-        HttpEntity<Orders> requestEntity = new HttpEntity<>(order, headers);
+        HttpEntity<Pedido> requestEntity = new HttpEntity<>(order, headers);
 
         ResponseEntity response = rest.exchange(API + "/orders/" + order.getId(),
-                HttpMethod.PUT, requestEntity, new ParameterizedTypeReference<Orders>() {
+                HttpMethod.PUT, requestEntity, new ParameterizedTypeReference<Pedido>() {
         });
+        
+        return response.getStatusCode();
+    }
+    
+    public HttpStatusCode verificaLogin(LoginDTO login) throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+	headers.add("Content-Type", "application/json");
+        
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        ow.writeValueAsString(login);
+        
+        HttpEntity<LoginDTO> requestEntity = new HttpEntity<>(login, headers);
+
+        ResponseEntity<LoginDTO> response = rest.postForEntity(API + "/verifyLogin", requestEntity, LoginDTO.class);
+        response.getBody();
         
         return response.getStatusCode();
     }
