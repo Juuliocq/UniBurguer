@@ -2,6 +2,8 @@ package com.mycompany.uniburguerretaguarda.gateway;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mycompany.uniburguerretaguarda.dto.LoginDTO;
+import com.mycompany.uniburguerretaguarda.dto.request.LoginRequest;
+import com.mycompany.uniburguerretaguarda.dto.response.LoginResponse;
 import com.mycompany.uniburguerretaguarda.model.Categoria;
 import com.mycompany.uniburguerretaguarda.model.Produto;
 import com.mycompany.uniburguerretaguarda.model.Pedido;
@@ -77,11 +79,23 @@ public class APIGateway {
         return response.getStatusCode();
     }
 
-    public HttpStatusCode verificaLogin(LoginDTO login) throws JsonProcessingException {
+    public ResponseEntity<LoginResponse> verificaLogin(LoginDTO login) throws JsonProcessingException {
         HttpHeaders headers = getHeader();
 
         HttpEntity<LoginDTO> requestEntity = new HttpEntity<>(login, headers);
-        ResponseEntity<LoginDTO> response = rest.postForEntity(API + "/verifyLogin", requestEntity, LoginDTO.class);
+        ResponseEntity<LoginResponse> response = rest.postForEntity(API + "/verifyLogin", requestEntity, LoginResponse.class);
+
+        return response;
+    }
+    
+    public HttpStatusCode putLogin(LoginRequest login, int pIdUsuario) {
+        HttpHeaders headers = getHeader();
+
+        HttpEntity<LoginRequest> requestEntity = new HttpEntity<>(login, headers);
+
+        ResponseEntity response = rest.exchange(API + "/logins/" + pIdUsuario,
+                HttpMethod.PUT, requestEntity, new ParameterizedTypeReference<Pedido>() {
+        });
 
         return response.getStatusCode();
     }

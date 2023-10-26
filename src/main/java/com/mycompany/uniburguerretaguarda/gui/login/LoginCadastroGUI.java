@@ -1,37 +1,54 @@
 package com.mycompany.uniburguerretaguarda.gui.login;
 
-import com.mycompany.uniburguerretaguarda.model.Categoria;
-import com.mycompany.uniburguerretaguarda.service.CategoriaService;
+import com.mycompany.uniburguerretaguarda.dto.request.LoginRequest;
+import com.mycompany.uniburguerretaguarda.model.Login;
+import com.mycompany.uniburguerretaguarda.service.LoginService;
+import com.mycompany.uniburguerretaguarda.util.Sessao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginCadastroGUI extends javax.swing.JFrame {
     
-    Categoria categoria;
-    private final CategoriaService categoriaService = new CategoriaService();
+    Login login = new Login();
+    private final LoginService loginService = new LoginService();
 
     public LoginCadastroGUI() {
         initComponents();
         
         this.setLocationRelativeTo(null);
-    }
-    
-    public void incluir() {
-        categoria = new Categoria();
-    }
-    
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
         
-        txtDescricao.setText(categoria.getDescricao());
+        this.login.setId(Sessao.idUsuario);
+        this.login.setNome(Sessao.nome);
+        this.login.setLogin(Sessao.login);
+        
+        setCampos();
     }
     
-    private void salvar() {
-        String nomeAnterior = categoria.getDescricao();
-        try {
-            categoria.setDescricao(txtDescricao.getText());
-            categoriaService.salvar(categoria);
-        } catch (Exception ex) {
-            txtDescricao.setText(nomeAnterior);
-        }
+    private void setCampos() {
+        txtNome.setText(login.getNome());
+        txtLogin.setText(login.getLogin());
+        txtCodigo.setText(String.valueOf(login.getId()));
+    }
+    
+    private void editar() {
+        txtLogin.setEditable(true);
+        txtNome.setEditable(true);
+        
+        btnEditar.setEnabled(false);
+        btnSalvar.setEnabled(true);
+    }
+    
+    private void salvar() throws Exception {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setLogin(txtLogin.getText());
+        loginRequest.setNome(txtNome.getText());
+        loginService.putLogin(loginRequest, Sessao.idUsuario);
+        
+        txtLogin.setEditable(false);
+        txtNome.setEditable(false);
+        
+        btnEditar.setEnabled(true);
+        btnSalvar.setEnabled(false);
     }
 
     /**
@@ -43,15 +60,46 @@ public class LoginCadastroGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtDescricao = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        btnEditar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Código");
+
+        jLabel2.setText("Login");
+
+        jLabel3.setText("Nome");
+
+        txtCodigo.setEditable(false);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+
+        txtLogin.setEditable(false);
+
+        txtNome.setEditable(false);
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -59,20 +107,44 @@ public class LoginCadastroGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo)
+                            .addComponent(txtLogin)
+                            .addComponent(txtNome))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnEditar))
                 .addContainerGap())
         );
 
@@ -80,11 +152,29 @@ public class LoginCadastroGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        salvar();
+        try {
+            salvar();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginCadastroGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnEditar;
     private javax.swing.JToggleButton btnSalvar;
-    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,7 @@
 
 package com.mycompany.uniburguerretaguarda;
 
-import com.mycompany.uniburguerretaguarda.gui.Login;
+import com.mycompany.uniburguerretaguarda.gui.LoginGUI;
 
 /**
  *
@@ -13,7 +13,7 @@ import com.mycompany.uniburguerretaguarda.gui.Login;
 public class UniBurguerRetaguarda {
 
     public static void main(String[] args) {
-        Login formLogin = new Login();
+        LoginGUI formLogin = new LoginGUI();
         formLogin.setVisible(true);
     }
 }

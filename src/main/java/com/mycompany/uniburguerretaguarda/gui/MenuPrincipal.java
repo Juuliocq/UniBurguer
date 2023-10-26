@@ -6,6 +6,8 @@ package com.mycompany.uniburguerretaguarda.gui;
 
 import com.mycompany.uniburguerretaguarda.gui.pedido.PedidosConsultaGUI;
 import com.mycompany.uniburguerretaguarda.gui.categoria.CategoriasConsultaGUI;
+import com.mycompany.uniburguerretaguarda.gui.login.LoginCadastroGUI;
+import com.mycompany.uniburguerretaguarda.util.Sessao;
 
 /**
  *
@@ -16,6 +18,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private ProdutosConsultaGUI produtosGUI;
     private PedidosConsultaGUI pedidosGUI;
     private CategoriasConsultaGUI categoriasGUI;
+    private LoginCadastroGUI loginGUI;
 
     /**
      * Creates new form MenuPrincipal
@@ -23,6 +26,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        lblBemVindo.setText("Bem Vindo(a), " + Sessao.nome + "!");
     }
 
     /**
@@ -38,7 +43,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnPedidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnCategorias = new javax.swing.JButton();
-        btnLogins = new javax.swing.JButton();
+        btnMeuLogin = new javax.swing.JButton();
+        lblBemVindo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -66,7 +72,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnLogins.setText("Logins");
+        btnMeuLogin.setText("Meu Login");
+        btnMeuLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMeuLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,16 +86,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblBemVindo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jLabel1))
-                            .addComponent(btnCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMeuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -96,11 +109,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPedidos)
-                    .addComponent(btnProdutos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCategorias)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btnLogins)
+                    .addComponent(btnProdutos)
+                    .addComponent(btnCategorias)
+                    .addComponent(btnMeuLogin))
+                .addGap(46, 46, 46)
+                .addComponent(lblBemVindo, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -127,6 +140,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             categoriasGUI.setVisible(true);
         }
     }//GEN-LAST:event_btnCategoriasActionPerformed
+
+    private void btnMeuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMeuLoginActionPerformed
+        if (loginGUI == null || !loginGUI.isVisible()) {
+            loginGUI = new LoginCadastroGUI();
+            loginGUI.setVisible(true);
+        }
+    }//GEN-LAST:event_btnMeuLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,9 +185,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
-    private javax.swing.JButton btnLogins;
+    private javax.swing.JButton btnMeuLogin;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProdutos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblBemVindo;
     // End of variables declaration//GEN-END:variables
 }
