@@ -1,6 +1,9 @@
 package com.mycompany.uniburguerretaguarda.model;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class Produto {
     
@@ -9,7 +12,7 @@ public class Produto {
     private String descricao;
     private int tipo_produto;
     private String imagem;
-    private String preco;
+    private double preco;
 
     public int getId() {
         return id;
@@ -51,11 +54,18 @@ public class Produto {
         this.imagem = imagem;
     }
 
-    public String getPreco() {
+    public double getPreco() {
         return preco;
     }
+    
+    public String getPrecoFormatado() {
 
-    public void setPreco(String preco) {
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        return currencyFormatter.format(preco);
+    }
+
+    public void setPreco(double preco) {
         this.preco = preco;
     }
     

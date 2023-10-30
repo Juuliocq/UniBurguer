@@ -4,6 +4,7 @@
  */
 package com.mycompany.uniburguerretaguarda.gui;
 
+import com.mycompany.uniburguerretaguarda.gui.produto.ProdutosConsultaGUI;
 import com.mycompany.uniburguerretaguarda.gui.pedido.PedidosConsultaGUI;
 import com.mycompany.uniburguerretaguarda.gui.categoria.CategoriasConsultaGUI;
 import com.mycompany.uniburguerretaguarda.gui.login.LoginCadastroGUI;

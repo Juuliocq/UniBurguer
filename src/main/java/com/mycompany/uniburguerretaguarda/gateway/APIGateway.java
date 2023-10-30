@@ -42,6 +42,38 @@ public class APIGateway {
 
         return response.getBody();
     }
+    
+    public Produto getProduto(int pIdProduto) {
+        HttpHeaders headers = getHeader();
+
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<Produto> response = rest.exchange(API + "/product/" + pIdProduto,
+                HttpMethod.GET, requestEntity, new ParameterizedTypeReference<Produto>() {
+        });
+
+        return response.getBody();
+    }
+    
+    public HttpStatusCode putProduto(Produto produto) {
+        HttpHeaders headers = getHeader();
+
+        HttpEntity<Produto> requestEntity = new HttpEntity<>(produto, headers);
+        ResponseEntity response = rest.exchange(API + "/product/" + produto.getId(),
+                HttpMethod.PUT, requestEntity, new ParameterizedTypeReference<Produto>() {
+        });
+
+        return response.getStatusCode();
+    }
+
+    public HttpStatusCode postProduto(Produto produto) throws JsonProcessingException {
+        HttpHeaders headers = getHeader();
+
+        HttpEntity<Produto> requestEntity = new HttpEntity<>(produto, headers);
+        ResponseEntity<Produto> response = rest.postForEntity(API + "/product", requestEntity, Produto.class);
+
+        return response.getStatusCode();
+    }
 
     public List<Pedido> getPedidos() {
         HttpHeaders headers = getHeader();
